@@ -14,3 +14,10 @@ gh repo edit liatri0/avr_auto-version-and-release \
   --enable-squash-merge=true \
   --enable-rebase-merge=true
 ```
+
+### Possible Solution for Req. 2
+Use `wagoid/commitlint-github-action@v6` on `pull_request` events to `main`,
+and turn on the following in repository settings:
+
+- "Require a pull request before merging"
+- "Require status checks to pass"
