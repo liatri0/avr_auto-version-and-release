@@ -21,3 +21,16 @@ and turn on the following in repository settings:
 
 - "Require a pull request before merging"
 - "Require status checks to pass"
+
+or via the CLI:
+```bash
+gh api -X PUT repos/OWNER/REPO/branches/main/protection --input - <<'EOF'
+{
+  "required_status_checks": { "strict": false, "contexts": ["commitlint"] },
+  "enforce_admins": true,
+  "required_pull_request_reviews": { "required_approving_review_count": 1 },
+  "restrictions": null,
+  "required_linear_history": true
+}
+EOF
+```
