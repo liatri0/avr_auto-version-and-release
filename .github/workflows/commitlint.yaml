@@ -2,6 +2,8 @@ name: commitlint
 on:
   pull_request:
     branches: [main]
+    types: [opened, edited, synchronize, reopened]  # 'edited' = re-run when the title changes
+
 
 jobs:
   commitlint:
@@ -12,3 +14,16 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 #v7
       - uses: wagoid/commitlint-github-action@b948419dd99f3fd78a6548d48f94e3df7f6bf3ed #v6
+  pr-title:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 #v7
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 #v7
+        with:
+          node-version: '26.10'
+      - run: npm install --no-save @commitlint/cli @commitlint/config-conventional
+      - env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
+        run: echo "$PR_TITLE" | npx commitlint
