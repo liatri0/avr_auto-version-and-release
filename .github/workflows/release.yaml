@@ -26,5 +26,5 @@ jobs:
           node-version: '26.10'
       - name: semantic release
         env:
-          GITHUB_TOKEN: ${{ steps.otco-sts.outputs.token }}
+          GITHUB_TOKEN: ${{ steps.octo-sts.outputs.token }}
         run: npx semantic-release
