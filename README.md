@@ -11,8 +11,9 @@ A simple demo repo for automatic versioning and release of a containerized app u
 ```bash
 gh repo edit liatri0/avr_auto-version-and-release \
   --enable-merge-commit=false \
+  --enable-rebase-merge=true \
   --enable-squash-merge=true \
-  --enable-rebase-merge=true
+  --squash-merge-commit-message=pr-title-description
 ```
 
 ### Possible Solution for Req. 2
@@ -28,7 +29,6 @@ gh api -X PUT repos/OWNER/REPO/branches/main/protection --input - <<'EOF'
 {
   "required_status_checks": { "strict": false, "contexts": ["commitlint"] },
   "enforce_admins": true,
-  "required_pull_request_reviews": { "required_approving_review_count": 1 },
   "restrictions": null,
   "required_linear_history": true
 }
