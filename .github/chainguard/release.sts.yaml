@@ -1,0 +1,4 @@
+issuer: https://token.actions.githubusercontent.com
+subject: repo:liatri0/avr_auto-version-and-release:ref:refs/heads/main
+permissions:
+  contents: write  # create tags + releases
