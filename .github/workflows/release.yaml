@@ -1,0 +1,30 @@
+on:
+  push:
+    branches: [main]
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write  # lets job request OIDC token from chainguard
+    steps:
+      - name: checkout commmit
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 #v7
+        width:
+          fetch-depth: 0              # semantic-release needs all tags/history
+          persist-credentials: false  # don't let the default token leak into git config(?)
+      - name: get release token
+        id: octo-sts
+        uses: octo-sts/action@6177b4481c00308b3839969c3eca88c96a91775f #v1.0.0
+        with:
+          scope: liatri0/avr_auto-version-and-release
+          identity: release           # -> .github/chainguard/release.sts.yaml
+      - name: setup node
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 #v7
+        with:
+          node-version: '26.10'
+      - name: semantic release
+        env:
+          GITHUB_TOKEN: ${{ steps.otco-sts.outputs.token }}
+        run: npx semantic-release
