@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: checkout commmit
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 #v7
-        width:
+        with:
           fetch-depth: 0              # semantic-release needs all tags/history
           persist-credentials: false  # don't let the default token leak into git config(?)
       - name: get release token
