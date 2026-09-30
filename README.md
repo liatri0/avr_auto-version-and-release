@@ -29,6 +29,7 @@ gh api -X PUT repos/OWNER/REPO/branches/main/protection --input - <<'EOF'
 {
   "required_status_checks": { "strict": false, "contexts": ["commitlint"] },
   "enforce_admins": true,
+  "required_pull_request_reviews": null,
   "restrictions": null,
   "required_linear_history": true
 }
